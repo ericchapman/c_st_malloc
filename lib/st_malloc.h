@@ -59,7 +59,7 @@ void *st_malloc_bytes(st_malloc_t *this, uint16_t size);
 void *st_malloc_var(st_malloc_t *this, uint8_t size);
 
 /**
- * Allocates a structure aligned to the value of "data_align".
+ * Allocates a structure aligned to the value of "uintptr_t".
  * @param this Pointer to the st_malloc instance
  * @param size The size of the variable to be allocated
  * @return Pointer to the structure (or NULL)
@@ -67,14 +67,14 @@ void *st_malloc_var(st_malloc_t *this, uint8_t size);
 void *st_malloc_struct(st_malloc_t *this, uint16_t size);
 
 /**
- * Returns "1" if the buffer has overflowed
+ * Returns "1" if the heap has overflowed
  * @param this Pointer to the st_malloc instance
- * @return "1" if the buffer has overflowed
+ * @return "1" if the heap has overflowed
  */
 uint8_t st_malloc_did_overflow(st_malloc_t *this);
 
 /**
- * Frees the ENTIRE buffer
+ * Frees the ENTIRE heap
  * @param this Pointer to the st_malloc instance
  */
 void st_malloc_free(st_malloc_t *this);
