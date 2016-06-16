@@ -25,14 +25,12 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 */
 
-extern int test_st_malloc();
-extern int test_st_array();
+#ifndef __ST_OBJECTS_ST_DICT_H__
+#define __ST_OBJECTS_ST_DICT_H__
 
-int main() {
-    int errors = 0;
+typedef struct st_dict_s
+{
 
-    errors += test_st_malloc();
-    errors += test_st_array();
+} st_dict_t;
 
-    return errors;
-}
+#endif // __ST_OBJECTS_ST_DICT_H__

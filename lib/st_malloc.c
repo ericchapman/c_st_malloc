@@ -42,9 +42,9 @@ static void *_st_malloc(st_malloc_t *this, uint16_t size)
     return (st_malloc_did_overflow(this))?NULL:location;
 }
 
-uint8_t st_malloc_did_overflow(st_malloc_t *this)
+st_bool_t st_malloc_did_overflow(st_malloc_t *this)
 {
-    return (uint8_t)(((uintptr_t)this->ptr > ((uintptr_t)this->heap + this->size))?1:0);
+    return (uint8_t)(((uintptr_t)this->ptr > ((uintptr_t)this->heap + this->size))?TRUE:FALSE);
 }
 
 void st_malloc_init(st_malloc_t *this, uint8_t *heap, uint16_t size)
@@ -74,4 +74,9 @@ void *st_malloc_struct(st_malloc_t *this, uint16_t size)
 void st_malloc_free(st_malloc_t *this)
 {
     this->ptr = this->heap;
+}
+
+uint16_t st_malloc_used_bytes(st_malloc_t *this)
+{
+    return (uint16_t)((uintptr_t)this->ptr - (uintptr_t)this->heap);
 }

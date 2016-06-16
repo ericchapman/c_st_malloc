@@ -25,14 +25,19 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 */
 
-extern int test_st_malloc();
-extern int test_st_array();
+#include "st_link.h"
 
-int main() {
-    int errors = 0;
+st_link_t *st_link_new(st_malloc_t *malloc, st_object_t *object, st_object_t *key)
+{
+    st_link_t *link = st_malloc_struct(malloc, sizeof(st_link_t));
+    st_link_init(link, object, key);
+    return link;
+}
 
-    errors += test_st_malloc();
-    errors += test_st_array();
-
-    return errors;
+void st_link_init(st_link_t *this, st_object_t *object, st_object_t *key)
+{
+    this->prev = NULL;
+    this->next = NULL;
+    this->object = object;
+    this->key = key;
 }

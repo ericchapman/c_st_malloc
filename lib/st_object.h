@@ -25,14 +25,44 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 */
 
-extern int test_st_malloc();
-extern int test_st_array();
+#ifndef __ST_OBJECTS_ST_OBJECT_H__
+#define __ST_OBJECTS_ST_OBJECT_H__
 
-int main() {
-    int errors = 0;
+#include "st_malloc.h"
 
-    errors += test_st_malloc();
-    errors += test_st_array();
+struct st_dict_s;
+struct st_array_s;
+typedef char * st_string_t;
+typedef int32_t st_int_t;
+typedef int64_t st_long_t;
+typedef float st_float_t;
 
-    return errors;
-}
+typedef enum
+{
+    DICT,
+    ARRAY,
+    STRING,
+    INTEGER,
+    LONG,
+    BOOLEAN,
+    FLOAT
+} st_object_type_t;
+
+typedef struct st_object_s
+{
+    st_object_type_t type;
+    void *value;
+} st_object_t;
+
+st_object_t *st_object_new(st_malloc_t *malloc, st_object_type_t type, void *value);
+void st_object_set(st_object_t *this, st_object_type_t type, void *value);
+
+struct st_dict_s *st_object_get_dict(st_object_t *this);
+struct st_array_s *st_object_get_array(st_object_t *this);
+st_bool_t st_object_get_bool(st_object_t *this);
+st_string_t st_object_get_string(st_object_t *this);
+st_int_t st_object_get_int(st_object_t *this);
+st_long_t st_object_get_long(st_object_t *this);
+st_float_t st_object_get_float(st_object_t *this);
+
+#endif // __ST_OBJECTS_ST_OBJECT_H__

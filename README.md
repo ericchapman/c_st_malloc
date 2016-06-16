@@ -1,6 +1,6 @@
-# Static Malloc
+# Static Objects
 
-*st_malloc* is a lightweight C library intended to allow low level C programs to have some malloc/free
+ST Objects is a lightweight C library intended to allow low level C programs to have some malloc/free
 capabilities using a statically allocated buffer.  The limitation is that *free* is called globally on
 **all** allocated values instead of each individual value.
 

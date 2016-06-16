@@ -25,16 +25,27 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  
 */
 
-#ifndef __ST_MALLOC_H__
-#define __ST_MALLOC_H__
+#ifndef __ST_OBJECTS_ST_MALLOC_H__
+#define __ST_OBJECTS_ST_MALLOC_H__
 
 #include <stdint.h>
 
+typedef uint8_t st_bool_t;
+
 #ifndef NULL
-#define NULL ( (void *) 0)
+#define NULL ((void *)0)
 #endif
 
-typedef struct st_malloc_s {
+#ifndef TRUE
+#define TRUE ((st_bool_t)1)
+#endif
+
+#ifndef FALSE
+#define FALSE ((st_bool_t)0)
+#endif
+
+typedef struct st_malloc_s
+{
     uint8_t *heap;
     uint8_t *ptr;
     uint16_t size;
@@ -67,11 +78,11 @@ void *st_malloc_var(st_malloc_t *this, uint8_t size);
 void *st_malloc_struct(st_malloc_t *this, uint16_t size);
 
 /**
- * Returns "1" if the buffer has overflowed
+ * Returns "TRUE" if the buffer has overflowed
  * @param this Pointer to the st_malloc instance
- * @return "1" if the buffer has overflowed
+ * @return "TRUE" if the buffer has overflowed
  */
-uint8_t st_malloc_did_overflow(st_malloc_t *this);
+st_bool_t st_malloc_did_overflow(st_malloc_t *this);
 
 /**
  * Frees the ENTIRE buffer
@@ -79,4 +90,11 @@ uint8_t st_malloc_did_overflow(st_malloc_t *this);
  */
 void st_malloc_free(st_malloc_t *this);
 
-#endif
+/**
+ * Returns the number of bytes used in the heap
+ * @param this Pointer to the st_malloc instance
+ * @return Number of bytes used by the heap
+ */
+uint16_t st_malloc_used_bytes(st_malloc_t *this);
+
+#endif // __ST_OBJECTS_ST_MALLOC_H__
