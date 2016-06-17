@@ -12,6 +12,6 @@ set(SOURCE_FILES
         lib/st_array.h
         lib/st_array.c
         lib/st_dict.h
-        lib/st_link.h tests/test_st_array.c lib/st_link.c)
+        lib/st_link.h tests/test_st_array.c lib/st_link.c lib/st_dict.c tests/test_st_object.c tests/test_st_dict.c)
 
 add_executable(st_objects ${SOURCE_FILES})

@@ -28,9 +28,21 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #ifndef __ST_OBJECTS_ST_DICT_H__
 #define __ST_OBJECTS_ST_DICT_H__
 
+#include "st_array.h"
+
 typedef struct st_dict_s
 {
-
+    st_array_t *array;
+    st_malloc_t *malloc;
 } st_dict_t;
+
+st_dict_t *st_dict_new(st_malloc_t *malloc);
+void st_dict_init(st_dict_t *this);
+
+uint16_t st_dict_get_size(st_dict_t *this);
+st_bool_t st_dict_set_object(st_dict_t *this, st_object_t *object, st_object_t *key);
+st_bool_t st_dict_has_key(st_dict_t *this, st_object_t *key);
+st_object_t *st_dict_get_object(st_dict_t *this, st_object_t *key);
+st_bool_t st_dict_remove_object(st_dict_t *this, st_object_t *key);
 
 #endif // __ST_OBJECTS_ST_DICT_H__

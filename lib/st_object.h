@@ -35,17 +35,17 @@ struct st_array_s;
 typedef char * st_string_t;
 typedef int32_t st_int_t;
 typedef int64_t st_long_t;
-typedef float st_float_t;
+typedef double st_float_t;
 
 typedef enum
 {
-    DICT,
-    ARRAY,
-    STRING,
-    INTEGER,
-    LONG,
-    BOOLEAN,
-    FLOAT
+    ST_OBJECT_TYPE_DICT,
+    ST_OBJECT_TYPE_ARRAY,
+    ST_OBJECT_TYPE_STR,
+    ST_OBJECT_TYPE_INT,
+    ST_OBJECT_TYPE_LONG,
+    ST_OBJECT_TYPE_BOOL,
+    ST_OBJECT_TYPE_FLOAT
 } st_object_type_t;
 
 typedef struct st_object_s
@@ -64,5 +64,7 @@ st_string_t st_object_get_string(st_object_t *this);
 st_int_t st_object_get_int(st_object_t *this);
 st_long_t st_object_get_long(st_object_t *this);
 st_float_t st_object_get_float(st_object_t *this);
+
+st_bool_t st_object_compare(st_object_t *object1, st_object_t *object2);
 
 #endif // __ST_OBJECTS_ST_OBJECT_H__

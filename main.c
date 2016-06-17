@@ -26,13 +26,17 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
 extern int test_st_malloc();
+extern int test_st_object();
 extern int test_st_array();
+extern int test_st_dict();
 
 int main() {
     int errors = 0;
 
     errors += test_st_malloc();
+    errors += test_st_object();
     errors += test_st_array();
+    errors += test_st_dict();
 
     return errors;
 }
