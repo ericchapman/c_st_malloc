@@ -31,6 +31,11 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #include <stdint.h>
 
 typedef uint8_t st_bool_t;
+typedef uint16_t st_size_t;
+typedef uint8_t st_byte_t;
+
+#define ST_BOOL(a) ((a)?((st_bool_t)1):((st_bool_t)0))
+#define ST_SIZE(a) (st_size_t)(a)
 
 #ifndef NULL
 #define NULL ((void *)0)
@@ -46,12 +51,12 @@ typedef uint8_t st_bool_t;
 
 typedef struct st_malloc_s
 {
-    uint8_t *heap;
-    uint8_t *ptr;
-    uint16_t size;
+    st_byte_t *heap;
+    st_byte_t *ptr;
+    st_size_t size;
 } st_malloc_t;
 
-void st_malloc_init(st_malloc_t *this, uint8_t *heap, uint16_t size);
+void st_malloc_init(st_malloc_t *this, st_byte_t *heap, st_size_t size);
 
 /**
  * Allocates an array of bytes
@@ -59,7 +64,7 @@ void st_malloc_init(st_malloc_t *this, uint8_t *heap, uint16_t size);
  * @param size The size of the bytes array to be allocated
  * @return Pointer to the byte array (or NULL)
  */
-void *st_malloc_bytes(st_malloc_t *this, uint16_t size);
+void *st_malloc_bytes(st_malloc_t *this, st_size_t size);
 
 /**
  * Allocates a variable aligned to the size of the variable.
@@ -67,15 +72,15 @@ void *st_malloc_bytes(st_malloc_t *this, uint16_t size);
  * @param size The size of the variable to be allocated
  * @return Pointer to the variable (or NULL)
  */
-void *st_malloc_var(st_malloc_t *this, uint8_t size);
+void *st_malloc_var(st_malloc_t *this, st_size_t size);
 
 /**
- * Allocates a structure aligned to the value of "uintptr_t".
+ * Allocates a structure aligned to the size of "uintptr_t".
  * @param this Pointer to the st_malloc instance
  * @param size The size of the variable to be allocated
  * @return Pointer to the structure (or NULL)
  */
-void *st_malloc_struct(st_malloc_t *this, uint16_t size);
+void *st_malloc_struct(st_malloc_t *this, st_size_t size);
 
 /**
  * Returns "TRUE" if the buffer has overflowed
@@ -95,6 +100,6 @@ void st_malloc_free(st_malloc_t *this);
  * @param this Pointer to the st_malloc instance
  * @return Number of bytes used by the heap
  */
-uint16_t st_malloc_used_bytes(st_malloc_t *this);
+st_size_t st_malloc_used_bytes(st_malloc_t *this);
 
 #endif // __ST_OBJECTS_ST_MALLOC_H__

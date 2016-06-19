@@ -35,7 +35,7 @@ static int passes = 0;
 
 void compare_link_value(st_array_t *array, int index, int value)
 {
-    st_link_t *temp_link = st_array_get_link(array, (uint16_t)index);
+    st_link_t *temp_link = st_array_get_link(array, ST_SIZE(index));
     if (st_object_get_int(temp_link->object) != value)
     {
         printf("object value != %d and was supposed to\n", value);
@@ -80,7 +80,6 @@ void link_tests()
 {
     int i;
 
-    st_int_t *temp_int;
     st_array_t *temp_array;
     st_object_t *temp_object;
     st_link_t *temp_link;
@@ -95,11 +94,9 @@ void link_tests()
     /* Create as simple array of integers */
     for (i=0; i<5; i++)
     {
-        temp_int = st_malloc_var(&st_m, sizeof(st_int_t));
-        *temp_int = i+10;
-        temp_object = st_object_new(&st_m, ST_OBJECT_TYPE_INT, temp_int);
+        temp_object = st_object_new_int(&st_m, i+10);
         temp_link = st_link_new(&st_m, temp_object, NULL);
-        st_array_insert_link(temp_array, temp_link, i);
+        st_array_insert_link(temp_array, temp_link, ST_SIZE(i));
     }
 
     compare_array_length(temp_array, 5);
@@ -144,7 +141,6 @@ void object_tests()
 {
     int i;
 
-    st_int_t *temp_int;
     st_array_t *temp_array;
     st_object_t *temp_object;
 
@@ -158,9 +154,7 @@ void object_tests()
     /* Create as simple array of integers */
     for (i=0; i<5; i++)
     {
-        temp_int = st_malloc_var(&st_m, sizeof(st_int_t));
-        *temp_int = i+10;
-        temp_object = st_object_new(&st_m, ST_OBJECT_TYPE_INT, temp_int);
+        temp_object = st_object_new_int(&st_m, ST_INT(i+10));
         st_array_insert_object(temp_array, temp_object, i);
     }
 
@@ -202,9 +196,7 @@ void object_tests()
     compare_object_value(temp_array, 0, 12);
 
     /* Append Object */
-    temp_int = st_malloc_var(&st_m, sizeof(st_int_t));
-    *temp_int = 14;
-    temp_object = st_object_new(&st_m, ST_OBJECT_TYPE_INT, temp_int);
+    temp_object = st_object_new_int(&st_m, 14);
     st_array_append_object(temp_array, temp_object);
 
     compare_array_length(temp_array, 2);

@@ -37,6 +37,10 @@ typedef int32_t st_int_t;
 typedef int64_t st_long_t;
 typedef double st_float_t;
 
+#define ST_INT(a) (st_int_t)(a)
+#define ST_LONG(a) (st_long_t)(a)
+#define ST_FLOAT(a) (st_float_t)(a)
+
 typedef enum
 {
     ST_OBJECT_TYPE_DICT,
@@ -57,13 +61,21 @@ typedef struct st_object_s
 st_object_t *st_object_new(st_malloc_t *malloc, st_object_type_t type, void *value);
 void st_object_set(st_object_t *this, st_object_type_t type, void *value);
 
-struct st_dict_s *st_object_get_dict(st_object_t *this);
-struct st_array_s *st_object_get_array(st_object_t *this);
+st_object_t *st_object_new_bool(st_malloc_t *malloc, st_bool_t value);
+st_object_t *st_object_new_int(st_malloc_t *malloc, st_int_t value);
+st_object_t *st_object_new_long(st_malloc_t *malloc, st_long_t value);
+st_object_t *st_object_new_float(st_malloc_t *malloc, st_float_t value);
+st_object_t *st_object_new_string(st_malloc_t *malloc, st_string_t value);
+st_object_t *st_object_new_array(st_malloc_t *malloc, struct st_array_s *value);
+st_object_t *st_object_new_dict(st_malloc_t *malloc, struct st_dict_s *value);
+
 st_bool_t st_object_get_bool(st_object_t *this);
-st_string_t st_object_get_string(st_object_t *this);
 st_int_t st_object_get_int(st_object_t *this);
 st_long_t st_object_get_long(st_object_t *this);
 st_float_t st_object_get_float(st_object_t *this);
+st_string_t st_object_get_string(st_object_t *this);
+struct st_array_s *st_object_get_array(st_object_t *this);
+struct st_dict_s *st_object_get_dict(st_object_t *this);
 
 st_bool_t st_object_compare(st_object_t *object1, st_object_t *object2);
 

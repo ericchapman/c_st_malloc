@@ -167,7 +167,6 @@ st_bool_t st_array_has_link(st_array_t *this, st_link_t *link)
             return TRUE;
         }
     }
-
     return FALSE;
 }
 
@@ -182,7 +181,6 @@ st_bool_t st_array_has_object(st_array_t *this, st_object_t *object)
             return TRUE;
         }
     }
-
     return FALSE;
 }
 

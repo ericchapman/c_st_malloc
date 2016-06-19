@@ -41,24 +41,56 @@ void st_object_set(st_object_t *this, st_object_type_t type, void *value)
     this->value = value;
 }
 
-struct st_dict_s *st_object_get_dict(st_object_t *this)
+st_object_t *st_object_new_bool(st_malloc_t *malloc, st_bool_t value)
 {
-    return (this->type == ST_OBJECT_TYPE_DICT)?((struct st_dict_s *)this->value):NULL;
+    st_bool_t *temp_value = st_malloc_var(malloc, sizeof(st_bool_t));
+    *temp_value = value;
+    return st_object_new(malloc, ST_OBJECT_TYPE_BOOL, temp_value);
 }
 
-struct st_array_s *st_object_get_array(st_object_t *this)
+st_object_t *st_object_new_int(st_malloc_t *malloc, st_int_t value)
 {
-    return (this->type == ST_OBJECT_TYPE_ARRAY)?((struct st_array_s *)this->value):NULL;
+    st_int_t *temp_value = st_malloc_var(malloc, sizeof(st_int_t));
+    *temp_value = value;
+    return st_object_new(malloc, ST_OBJECT_TYPE_INT, temp_value);
+}
+
+st_object_t *st_object_new_long(st_malloc_t *malloc, st_long_t value)
+{
+    st_long_t *temp_value = st_malloc_var(malloc, sizeof(st_long_t));
+    *temp_value = value;
+    return st_object_new(malloc, ST_OBJECT_TYPE_LONG, temp_value);
+}
+
+st_object_t *st_object_new_float(st_malloc_t *malloc, st_float_t value)
+{
+    st_float_t *temp_value = st_malloc_var(malloc, sizeof(st_float_t));
+    *temp_value = value;
+    return st_object_new(malloc, ST_OBJECT_TYPE_FLOAT, temp_value);
+}
+
+st_object_t *st_object_new_string(st_malloc_t *malloc, st_string_t value)
+{
+    size_t length = strlen(value);
+    st_string_t temp_value = st_malloc_bytes(malloc, ST_SIZE(length+1));
+    strcpy(temp_value, value);
+    temp_value[length] = '\0';
+    return st_object_new(malloc, ST_OBJECT_TYPE_STR, temp_value);
+}
+
+st_object_t *st_object_new_array(st_malloc_t *malloc, struct st_array_s *value)
+{
+    return st_object_new(malloc, ST_OBJECT_TYPE_ARRAY, value);
+}
+
+st_object_t *st_object_new_dict(st_malloc_t *malloc, struct st_dict_s *value)
+{
+    return st_object_new(malloc, ST_OBJECT_TYPE_DICT, value);
 }
 
 st_bool_t st_object_get_bool(st_object_t *this)
 {
     return (this->type == ST_OBJECT_TYPE_BOOL)?*((st_bool_t *)this->value):(st_bool_t)0;
-}
-
-st_string_t st_object_get_string(st_object_t *this)
-{
-    return (this->type == ST_OBJECT_TYPE_STR)?((st_string_t)this->value):NULL;
 }
 
 st_int_t st_object_get_int(st_object_t *this)
@@ -76,6 +108,21 @@ st_float_t st_object_get_float(st_object_t *this)
     return (this->type == ST_OBJECT_TYPE_FLOAT)?*((st_float_t *)this->value):0;
 }
 
+st_string_t st_object_get_string(st_object_t *this)
+{
+    return (this->type == ST_OBJECT_TYPE_STR)?((st_string_t)this->value):NULL;
+}
+
+struct st_array_s *st_object_get_array(st_object_t *this)
+{
+    return (this->type == ST_OBJECT_TYPE_ARRAY)?((struct st_array_s *)this->value):NULL;
+}
+
+struct st_dict_s *st_object_get_dict(st_object_t *this)
+{
+    return (this->type == ST_OBJECT_TYPE_DICT)?((struct st_dict_s *)this->value):NULL;
+}
+
 st_bool_t st_object_compare(st_object_t *object1, st_object_t *object2)
 {
     if (object1 == object2)
@@ -90,21 +137,19 @@ st_bool_t st_object_compare(st_object_t *object1, st_object_t *object2)
 
     switch(object1->type) {
         case ST_OBJECT_TYPE_STR:
-            return (st_bool_t)(strcmp(object1->value, object2->value) == 0);
+            return ST_BOOL(strcmp(object1->value, object2->value) == 0);
         case ST_OBJECT_TYPE_BOOL:
-            return (st_bool_t)(*(st_bool_t *)object1->value == *(st_bool_t *)object2->value);
+            return ST_BOOL(st_object_get_bool(object1) == st_object_get_bool(object2));
         case ST_OBJECT_TYPE_INT:
-            return (st_bool_t)(*(st_int_t *)object1->value == *(st_int_t *)object2->value);
+            return ST_BOOL(st_object_get_int(object1) == st_object_get_int(object2));
         case ST_OBJECT_TYPE_LONG:
-            return (st_bool_t)(*(st_long_t *)object1->value == *(st_long_t *)object2->value);
+            return ST_BOOL(st_object_get_long(object1) == st_object_get_long(object2));
         case ST_OBJECT_TYPE_FLOAT:
-            return (st_bool_t)(*(st_float_t *)object1->value == *(st_float_t *)object2->value);
+            return ST_BOOL(st_object_get_float(object1) == st_object_get_float(object2));
         case ST_OBJECT_TYPE_ARRAY:
         case ST_OBJECT_TYPE_DICT:
-            return (st_bool_t)(object1->value == object2->value);
+            return ST_BOOL(object1->value == object2->value);
         default:
-        {
             return FALSE;
-        }
     }
 }

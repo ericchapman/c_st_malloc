@@ -43,16 +43,19 @@ void st_array_init(st_array_t *this);
 
 uint16_t st_array_get_size(st_array_t *this);
 
+/* Link Manipulation Methods */
 st_bool_t st_array_insert_link(st_array_t *this, st_link_t *link, uint16_t index);
 st_bool_t st_array_append_link(st_array_t *this, st_link_t *link);
 st_link_t *st_array_get_link(st_array_t *this, uint16_t index);
 st_bool_t st_array_remove_link(st_array_t *this, uint16_t index);
 
+/* Object Manipulation Methods */
 st_bool_t st_array_insert_object(st_array_t *this, st_object_t *object, uint16_t index);
 st_bool_t st_array_append_object(st_array_t *this, st_object_t *object);
 st_object_t *st_array_get_object(st_array_t *this, uint16_t index);
 st_bool_t st_array_remove_object(st_array_t *this, uint16_t index);
 
+/* Search Methods */
 st_bool_t st_array_has_link(st_array_t *this, st_link_t *link);
 st_bool_t st_array_has_object(st_array_t *this, st_object_t *object);
 st_bool_t st_array_has_key(st_array_t *this, st_object_t *key);

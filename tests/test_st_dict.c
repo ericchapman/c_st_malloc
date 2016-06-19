@@ -35,7 +35,6 @@ static uint8_t _heap[1024];
 
 int test_st_dict() {
     st_dict_t *temp_dict;
-    st_int_t *temp_int;
     st_object_t *temp_object, *temp_key;
 
     st_malloc_t st_m;
@@ -47,10 +46,8 @@ int test_st_dict() {
     temp_dict = st_dict_new(&st_m);
 
     // Insert the first value
-    temp_int = st_malloc_var(&st_m, sizeof(st_int_t));
-    *temp_int = 25;
-    temp_object = st_object_new(&st_m, ST_OBJECT_TYPE_INT, temp_int);
-    temp_key = st_object_new(&st_m, ST_OBJECT_TYPE_STR, "param1");
+    temp_object = st_object_new_int(&st_m, 25);
+    temp_key = st_object_new_string(&st_m, "param1");
     st_dict_set_object(temp_dict, temp_object, temp_key);
 
     if (st_dict_get_size(temp_dict) != 1)
@@ -75,7 +72,7 @@ int test_st_dict() {
         passes++;
     }
 
-    temp_key = st_object_new(&st_m, ST_OBJECT_TYPE_STR, "param1");
+    temp_key = st_object_new_string(&st_m, "param1");
 
     if (st_dict_has_key(temp_dict, temp_key) != TRUE)
     {
@@ -87,7 +84,7 @@ int test_st_dict() {
         passes++;
     }
 
-    temp_key = st_object_new(&st_m, ST_OBJECT_TYPE_STR, "param2");
+    temp_key = st_object_new_string(&st_m, "param2");
 
     if (st_dict_has_key(temp_dict, temp_key) != FALSE)
     {
@@ -100,10 +97,8 @@ int test_st_dict() {
     }
 
     // Overwrite the value
-    temp_int = st_malloc_var(&st_m, sizeof(st_int_t));
-    *temp_int = 28;
-    temp_object = st_object_new(&st_m, ST_OBJECT_TYPE_INT, temp_int);
-    temp_key = st_object_new(&st_m, ST_OBJECT_TYPE_STR, "param1");
+    temp_object = st_object_new_int(&st_m, 28);
+    temp_key = st_object_new_string(&st_m, "param1");
     st_dict_set_object(temp_dict, temp_object, temp_key);
 
     if (st_dict_get_size(temp_dict) != 1)
