@@ -77,15 +77,21 @@ Some notes
 they use when allocating the requested block.  They are defined as follows
 
 ``` c
-    void *st_malloc_bytes(st_malloc_t *this, st_size_t size);   // No alignment
-    void *st_malloc_var(st_malloc_t *this, st_size_t size);     // Aligns to the size of hte variable
-    void *st_malloc_struct(st_malloc_t *this, st_size_t size);  // Aligns to the size of a pointer in the target architecture
+void *st_malloc_bytes(st_malloc_t *this, st_size_t size);   // No alignment
+void *st_malloc_var(st_malloc_t *this, st_size_t size);     // Aligns to the size of the variable
+void *st_malloc_struct(st_malloc_t *this, st_size_t size);  // Aligns to the size of a pointer in the target architecture
 ```
 All objects that are allocated using these calls will be pulled from the *heap* of the *st_malloc* object.
 In order to free all of the objects, simply call
 
 ``` c
-    void st_malloc_free(st_malloc_t *this);
+void st_malloc_free(st_malloc_t *this);
+```
+
+You can also check how much of the heap is allocated by calling the following method
+
+``` c
+st_size_t st_malloc_used_bytes(st_malloc_t *this);
 ```
 
 Please see *st_malloc.h* for more methods that are available
@@ -104,13 +110,13 @@ An *st_object* is a container object that is used to encapsulate variables of th
 The *st_object* class has numerous creation methods that are used to create new objects.  They are as follows
 
 ``` c
-    st_object_t *st_object_new_bool(st_malloc_t *malloc, st_bool_t value);
-    st_object_t *st_object_new_int(st_malloc_t *malloc, st_int_t value);
-    st_object_t *st_object_new_long(st_malloc_t *malloc, st_long_t value);
-    st_object_t *st_object_new_float(st_malloc_t *malloc, st_float_t value);
-    st_object_t *st_object_new_string(st_malloc_t *malloc, st_string_t value);
-    st_object_t *st_object_new_array(st_malloc_t *malloc, struct st_array_s *value);
-    st_object_t *st_object_new_dict(st_malloc_t *malloc, struct st_dict_s *value);
+st_object_t *st_object_new_bool(st_malloc_t *malloc, st_bool_t value);
+st_object_t *st_object_new_int(st_malloc_t *malloc, st_int_t value);
+st_object_t *st_object_new_long(st_malloc_t *malloc, st_long_t value);
+st_object_t *st_object_new_float(st_malloc_t *malloc, st_float_t value);
+st_object_t *st_object_new_string(st_malloc_t *malloc, st_string_t value);
+st_object_t *st_object_new_array(st_malloc_t *malloc, struct st_array_s *value);
+st_object_t *st_object_new_dict(st_malloc_t *malloc, struct st_dict_s *value);
 ```
 
 Calling any of these will allocate that type of object from the *heap* and set it with the value.  Note that
@@ -119,20 +125,20 @@ the value is copied so any further manipulation of the passed in variable will b
 The class provides getters for accessing the value.  The getters are defined as follows
 
 ``` c
-    st_bool_t st_object_get_bool(st_object_t *this);
-    st_int_t st_object_get_int(st_object_t *this);
-    st_long_t st_object_get_long(st_object_t *this);
-    st_float_t st_object_get_float(st_object_t *this);
-    st_string_t st_object_get_string(st_object_t *this);
-    struct st_array_s *st_object_get_array(st_object_t *this);
-    struct st_dict_s *st_object_get_dict(st_object_t *this);
+st_bool_t st_object_get_bool(st_object_t *this);
+st_int_t st_object_get_int(st_object_t *this);
+st_long_t st_object_get_long(st_object_t *this);
+st_float_t st_object_get_float(st_object_t *this);
+st_string_t st_object_get_string(st_object_t *this);
+struct st_array_s *st_object_get_array(st_object_t *this);
+struct st_dict_s *st_object_get_dict(st_object_t *this);
 ```
 
 As a convenience function, the class provides a *compare* method that will return *TRUE* if two
 objects are considered equal.
 
 ``` c
-    st_bool_t st_object_compare(st_object_t *object1, st_object_t *object2);
+st_bool_t st_object_compare(st_object_t *object1, st_object_t *object2);
 ```
 
 Equality is defined as follows
@@ -150,27 +156,27 @@ the links of the list directly OR on the objects that are contained in the links
 for operating on the links are are follows
 
 ``` c
-    st_bool_t st_array_insert_link(st_array_t *this, st_link_t *link, uint16_t index);
-    st_bool_t st_array_append_link(st_array_t *this, st_link_t *link);
-    st_link_t *st_array_get_link(st_array_t *this, uint16_t index);
-    st_bool_t st_array_remove_link(st_array_t *this, uint16_t index);
+st_bool_t st_array_insert_link(st_array_t *this, st_link_t *link, uint16_t index);
+st_bool_t st_array_append_link(st_array_t *this, st_link_t *link);
+st_link_t *st_array_get_link(st_array_t *this, uint16_t index);
+st_bool_t st_array_remove_link(st_array_t *this, uint16_t index);
 ```
 
 The object manipulation methods are
 
 ``` c
-    st_bool_t st_array_insert_object(st_array_t *this, st_object_t *object, uint16_t index);
-    st_bool_t st_array_append_object(st_array_t *this, st_object_t *object);
-    st_object_t *st_array_get_object(st_array_t *this, uint16_t index);
-    st_bool_t st_array_remove_object(st_array_t *this, uint16_t index);
+st_bool_t st_array_insert_object(st_array_t *this, st_object_t *object, uint16_t index);
+st_bool_t st_array_append_object(st_array_t *this, st_object_t *object);
+st_object_t *st_array_get_object(st_array_t *this, uint16_t index);
+st_bool_t st_array_remove_object(st_array_t *this, uint16_t index);
 ```
 
 There are *has* methods that allow you to see if certain things are contained in the array.  They are
 
 ``` c
-    st_bool_t st_array_has_link(st_array_t *this, st_link_t *link);
-    st_bool_t st_array_has_object(st_array_t *this, st_object_t *object);
-    st_bool_t st_array_has_key(st_array_t *this, st_object_t *key);
+st_bool_t st_array_has_link(st_array_t *this, st_link_t *link);
+st_bool_t st_array_has_object(st_array_t *this, st_object_t *object);
+st_bool_t st_array_has_key(st_array_t *this, st_object_t *key);
 ```
 
 Please see *st_array.h* for more methods that are available
@@ -186,11 +192,11 @@ values.
 The following methods are defined
 
 ``` c
-    uint16_t st_dict_get_size(st_dict_t *this);
-    st_bool_t st_dict_set_object(st_dict_t *this, st_object_t *object, st_object_t *key);
-    st_bool_t st_dict_has_key(st_dict_t *this, st_object_t *key);
-    st_object_t *st_dict_get_object(st_dict_t *this, st_object_t *key);
-    st_bool_t st_dict_remove_object(st_dict_t *this, st_object_t *key);
+uint16_t st_dict_get_size(st_dict_t *this);
+st_bool_t st_dict_set_object(st_dict_t *this, st_object_t *object, st_object_t *key);
+st_bool_t st_dict_has_key(st_dict_t *this, st_object_t *key);
+st_object_t *st_dict_get_object(st_dict_t *this, st_object_t *key);
+st_bool_t st_dict_remove_object(st_dict_t *this, st_object_t *key);
 ```
 
 Note that ANY *st_object* can be used as a *key*.  This is to provide flexibility in the use
