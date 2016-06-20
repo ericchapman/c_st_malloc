@@ -29,7 +29,7 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 static void _st_malloc_align(st_malloc_t *this, st_size_t size)
 {
-    while((uintptr_t)this->ptr%size != 0)
+    while((st_ptr_t)this->ptr%size != 0)
     {
         this->ptr++;
     }
@@ -44,7 +44,7 @@ static void *_st_malloc(st_malloc_t *this, st_size_t size)
 
 st_bool_t st_malloc_did_overflow(st_malloc_t *this)
 {
-    return ST_BOOL((uintptr_t)this->ptr > ((uintptr_t)this->heap + this->size));
+    return ST_BOOL((st_ptr_t)this->ptr > ((st_ptr_t)this->heap + this->size));
 }
 
 void st_malloc_init(st_malloc_t *this, uint8_t *heap, st_size_t size)
@@ -67,7 +67,7 @@ void *st_malloc_var(st_malloc_t *this, st_size_t size)
 
 void *st_malloc_struct(st_malloc_t *this, st_size_t size)
 {
-    _st_malloc_align(this, sizeof(uintptr_t));
+    _st_malloc_align(this, sizeof(st_ptr_t));
     return _st_malloc(this, size);
 }
 
@@ -78,5 +78,5 @@ void st_malloc_free(st_malloc_t *this)
 
 st_size_t st_malloc_used_bytes(st_malloc_t *this)
 {
-    return ST_SIZE((uintptr_t)this->ptr - (uintptr_t)this->heap);
+    return ST_SIZE((st_ptr_t)this->ptr - (st_ptr_t)this->heap);
 }

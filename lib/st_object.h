@@ -30,17 +30,6 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 #include "st_malloc.h"
 
-struct st_dict_s;
-struct st_array_s;
-typedef char * st_string_t;
-typedef int32_t st_int_t;
-typedef int64_t st_long_t;
-typedef double st_float_t;
-
-#define ST_INT(a) (st_int_t)(a)
-#define ST_LONG(a) (st_long_t)(a)
-#define ST_FLOAT(a) (st_float_t)(a)
-
 typedef enum
 {
     ST_OBJECT_TYPE_DICT,

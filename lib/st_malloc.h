@@ -28,26 +28,7 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #ifndef __ST_OBJECTS_ST_MALLOC_H__
 #define __ST_OBJECTS_ST_MALLOC_H__
 
-#include <stdint.h>
-
-typedef uint8_t st_bool_t;
-typedef uint16_t st_size_t;
-typedef uint8_t st_byte_t;
-
-#define ST_BOOL(a) ((a)?((st_bool_t)1):((st_bool_t)0))
-#define ST_SIZE(a) (st_size_t)(a)
-
-#ifndef NULL
-#define NULL ((void *)0)
-#endif
-
-#ifndef TRUE
-#define TRUE ((st_bool_t)1)
-#endif
-
-#ifndef FALSE
-#define FALSE ((st_bool_t)0)
-#endif
+#include "st_types.h"
 
 typedef struct st_malloc_s
 {
