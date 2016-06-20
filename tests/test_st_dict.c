@@ -48,7 +48,7 @@ int test_st_dict() {
     // Insert the first value
     temp_object = st_object_new_int(&st_m, 25);
     temp_key = st_object_new_string(&st_m, "param1");
-    st_dict_set_object(temp_dict, temp_object, temp_key);
+    st_dict_set_object(temp_dict, temp_key, temp_object);
 
     if (st_dict_get_size(temp_dict) != 1)
     {
@@ -99,7 +99,7 @@ int test_st_dict() {
     // Overwrite the value
     temp_object = st_object_new_int(&st_m, 28);
     temp_key = st_object_new_string(&st_m, "param1");
-    st_dict_set_object(temp_dict, temp_object, temp_key);
+    st_dict_set_object(temp_dict, temp_key, temp_object);
 
     if (st_dict_get_size(temp_dict) != 1)
     {

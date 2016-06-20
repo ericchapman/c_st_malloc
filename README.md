@@ -193,7 +193,7 @@ The following methods are defined
 
 ``` c
 uint16_t st_dict_get_size(st_dict_t *this);
-st_bool_t st_dict_set_object(st_dict_t *this, st_object_t *object, st_object_t *key);
+st_bool_t st_dict_set_object(st_dict_t *this, st_object_t *key, st_object_t *object);
 st_bool_t st_dict_has_key(st_dict_t *this, st_object_t *key);
 st_object_t *st_dict_get_object(st_dict_t *this, st_object_t *key);
 st_bool_t st_dict_remove_object(st_dict_t *this, st_object_t *key);
@@ -226,15 +226,15 @@ int main()
     // Create the key/value pair "param1" - 22.5 (float)
     st_dict_set_object(
         dict,
-        st_object_new_float(&malloc, 22.5),       // object
-        st_object_new_string(&malloc, "param1")   // key
+        st_object_new_string(&malloc, "param1"),  // key
+        st_object_new_float(&malloc, 22.5)        // object
     );
 
     // Create the key/value pair 16.3 (float) - "value1"
     st_dict_set_object(
         dict,
-        st_object_new_string(&malloc, "value1"),  // object
-        st_object_new_float(&malloc, 16.3)        // key
+        st_object_new_float(&malloc, 16.3),       // key
+        st_object_new_string(&malloc, "value1")   // object
     );
 
     // Do something with the dictionary

@@ -45,7 +45,7 @@ uint16_t st_dict_get_size(st_dict_t *this)
     return st_array_get_size(this->array);
 }
 
-st_bool_t st_dict_set_object(st_dict_t *this, st_object_t *object, st_object_t *key)
+st_bool_t st_dict_set_object(st_dict_t *this, st_object_t *key, st_object_t *object)
 {
     st_link_t *new_link = st_link_new(this->malloc, object, key);
     st_dict_remove_object(this, key);
