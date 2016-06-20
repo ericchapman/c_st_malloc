@@ -40,7 +40,7 @@ void st_dict_init(st_dict_t *this)
     this->array = st_array_new(this->malloc);
 }
 
-uint16_t st_dict_get_size(st_dict_t *this)
+st_size_t st_dict_get_size(st_dict_t *this)
 {
     return st_array_get_size(this->array);
 }

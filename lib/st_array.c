@@ -42,12 +42,12 @@ void st_array_init(st_array_t *this)
     this->size = 0;
 }
 
-uint16_t st_array_get_size(st_array_t *this)
+st_size_t st_array_get_size(st_array_t *this)
 {
     return this->size;
 }
 
-st_bool_t st_array_insert_link(st_array_t *this, st_link_t *link, uint16_t index)
+st_bool_t st_array_insert_link(st_array_t *this, st_link_t *link, st_size_t index)
 {
     st_link_t *cur_link = st_array_get_link(this, index);
 
@@ -91,7 +91,7 @@ st_bool_t st_array_append_link(st_array_t *this, st_link_t *link)
     return st_array_insert_link(this, link, st_array_get_size(this));
 }
 
-st_bool_t st_array_remove_link(st_array_t *this, uint16_t index)
+st_bool_t st_array_remove_link(st_array_t *this, st_size_t index)
 {
     st_link_t *cur_link = st_array_get_link(this, index);
 
@@ -118,7 +118,7 @@ st_bool_t st_array_remove_link(st_array_t *this, uint16_t index)
     return TRUE;
 }
 
-st_link_t *st_array_get_link(st_array_t *this, uint16_t index)
+st_link_t *st_array_get_link(st_array_t *this, st_size_t index)
 {
     st_link_t *cur_link;
 
@@ -135,7 +135,7 @@ st_link_t *st_array_get_link(st_array_t *this, uint16_t index)
     return cur_link;
 }
 
-st_bool_t st_array_insert_object(st_array_t *this, st_object_t *object, uint16_t index)
+st_bool_t st_array_insert_object(st_array_t *this, st_object_t *object, st_size_t index)
 {
     st_link_t *new_link = st_link_new(this->malloc, object, NULL);
     return st_array_insert_link(this, new_link, index);
@@ -147,20 +147,20 @@ st_bool_t st_array_append_object(st_array_t *this, st_object_t *object)
     return st_array_insert_link(this, new_link, st_array_get_size(this));
 }
 
-st_object_t *st_array_get_object(st_array_t *this, uint16_t index)
+st_object_t *st_array_get_object(st_array_t *this, st_size_t index)
 {
     st_link_t *link = st_array_get_link(this, index);
     return (link != NULL)?link->object:NULL;
 }
 
-st_bool_t st_array_remove_object(st_array_t *this, uint16_t index)
+st_bool_t st_array_remove_object(st_array_t *this, st_size_t index)
 {
     return st_array_remove_link(this, index);
 }
 
 st_bool_t st_array_has_link(st_array_t *this, st_link_t *link)
 {
-    uint16_t i;
+    st_size_t i;
     for(i=0; i<st_array_get_size(this); i++)
     {
         if (st_array_get_link(this, i) == link) {
@@ -172,7 +172,7 @@ st_bool_t st_array_has_link(st_array_t *this, st_link_t *link)
 
 st_bool_t st_array_has_object(st_array_t *this, st_object_t *object)
 {
-    uint16_t i;
+    st_size_t i;
     st_link_t *link;
     for(i=0; i<st_array_get_size(this); i++)
     {
@@ -186,7 +186,7 @@ st_bool_t st_array_has_object(st_array_t *this, st_object_t *object)
 
 st_bool_t st_array_has_key(st_array_t *this, st_object_t *key)
 {
-    uint16_t i;
+    st_size_t i;
     st_link_t *link;
     for(i=0; i<st_array_get_size(this); i++)
     {

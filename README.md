@@ -156,19 +156,19 @@ the links of the list directly OR on the objects that are contained in the links
 for operating on the links are are follows
 
 ``` c
-st_bool_t st_array_insert_link(st_array_t *this, st_link_t *link, uint16_t index);
+st_bool_t st_array_insert_link(st_array_t *this, st_link_t *link, st_size_t index);
 st_bool_t st_array_append_link(st_array_t *this, st_link_t *link);
-st_link_t *st_array_get_link(st_array_t *this, uint16_t index);
-st_bool_t st_array_remove_link(st_array_t *this, uint16_t index);
+st_link_t *st_array_get_link(st_array_t *this, st_size_t index);
+st_bool_t st_array_remove_link(st_array_t *this, st_size_t index);
 ```
 
 The object manipulation methods are
 
 ``` c
-st_bool_t st_array_insert_object(st_array_t *this, st_object_t *object, uint16_t index);
+st_bool_t st_array_insert_object(st_array_t *this, st_object_t *object, st_size_t index);
 st_bool_t st_array_append_object(st_array_t *this, st_object_t *object);
-st_object_t *st_array_get_object(st_array_t *this, uint16_t index);
-st_bool_t st_array_remove_object(st_array_t *this, uint16_t index);
+st_object_t *st_array_get_object(st_array_t *this, st_size_t index);
+st_bool_t st_array_remove_object(st_array_t *this, st_size_t index);
 ```
 
 There are *has* methods that allow you to see if certain things are contained in the array.  They are
@@ -192,7 +192,7 @@ values.
 The following methods are defined
 
 ``` c
-uint16_t st_dict_get_size(st_dict_t *this);
+st_size_t st_dict_get_size(st_dict_t *this);
 st_bool_t st_dict_set_object(st_dict_t *this, st_object_t *key, st_object_t *object);
 st_bool_t st_dict_has_key(st_dict_t *this, st_object_t *key);
 st_object_t *st_dict_get_object(st_dict_t *this, st_object_t *key);

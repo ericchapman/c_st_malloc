@@ -39,7 +39,7 @@ typedef struct st_dict_s
 st_dict_t *st_dict_new(st_malloc_t *malloc);
 void st_dict_init(st_dict_t *this);
 
-uint16_t st_dict_get_size(st_dict_t *this);
+st_size_t st_dict_get_size(st_dict_t *this);
 st_bool_t st_dict_set_object(st_dict_t *this, st_object_t *key, st_object_t *object);
 st_bool_t st_dict_has_key(st_dict_t *this, st_object_t *key);
 st_object_t *st_dict_get_object(st_dict_t *this, st_object_t *key);

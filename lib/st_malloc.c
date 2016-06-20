@@ -47,7 +47,7 @@ st_bool_t st_malloc_did_overflow(st_malloc_t *this)
     return ST_BOOL((st_ptr_t)this->ptr > ((st_ptr_t)this->heap + this->size));
 }
 
-void st_malloc_init(st_malloc_t *this, uint8_t *heap, st_size_t size)
+void st_malloc_init(st_malloc_t *this, st_byte_t *heap, st_size_t size)
 {
     this->heap = heap;
     this->size = size;
